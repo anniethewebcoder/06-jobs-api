@@ -1,5 +1,5 @@
 const User = require('./../models/User')
-const { StatusCodes } = require('http-status-code')
+const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, UnaunthenticatedError, UnauthenticatedError } = require('./../errors')
 
 const register = async (req, res) => {
@@ -13,7 +13,7 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const { emial, password } = req.body
+    const { email, password } = req.body
 
     if(!email || !password) {
         throw new BadRequestError('Please provide email and password')
