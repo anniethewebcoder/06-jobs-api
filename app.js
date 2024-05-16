@@ -33,9 +33,11 @@ app.use(rateLimiter({
   max: 60
 }))
 
-app.get('/', (req, res) => {
-  res.send('jobs api')
-})
+// app.get("/", (req, res) => {
+//   res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+// });
+
+app.use(express.static('public'))
 
 app.use('/api-use', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
