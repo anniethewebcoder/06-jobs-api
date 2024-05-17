@@ -41,17 +41,36 @@ export const handleRegister = () => {
                         const data = await response.json();
 
                         if(response.status === 201) {
+                            message.textContent = `Registraton successful. Welcome ${data.user.name}.`;
 
+                            setToken(data.token)
+
+                            name.value= "";
+                            email1.value = "";
+                            password1.value = "";
+                            password2.value = "";
+                            
+                            showJobs();
+                        } else {
+                            message.textContent = data.msg;
                         }
-
 
                     } catch(err) {
                         console.error(err);
+
+                        message.textContent = "A communication error occurred."
                     }
+
+                    enableInput(true);
                 }
             
                 showJobs();
             } else if (e.target === registerCancel) {
+                name.value = "";
+                email1.value = "";
+                password1.value = "";
+                password2.value = "";
+                
                 showLoginRegister();
             }
         }
