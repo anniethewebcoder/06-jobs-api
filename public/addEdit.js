@@ -25,6 +25,12 @@ export const handleAddEdit = () => {
                 let method = "POST";
                 let url = "/api/v1/jobs";
 
+                if(addingJob.textContent === "UPDATE") {
+                    method = "PATCH";
+                    url = `/api/v1/jobs/${addEditDiv.dataset.id}`;
+                    console.log(url)
+                }
+
                 try {
                     const response = await fetch(url, {
                         method: method,
@@ -41,8 +47,12 @@ export const handleAddEdit = () => {
 
                     const data = await response.json();
 
-                    if(response.status === 201) {
-                        message.textContent = "The job entry was created.";
+                    if(response.status === 200 || response.status === 201) {
+                        if(response.status === 200) {
+                            message.textContent = "The job entry was updated."
+                        } else {
+                            message.textContent = "The job entry was created.";
+                        }
 
                         company.value = "";
                         position.value = "";
@@ -68,7 +78,54 @@ export const handleAddEdit = () => {
     })
 }
 
-export const showAddEdit = (job) => {
-    message.textContent = "";
-    setDiv(addEditDiv);
+export const showAddEdit = async (jobId) => {
+   if(!jobId) {
+        company.value = "";
+        position.value = "";
+        status.value = "pending";
+
+        addingJob.textContent = "ADD";
+        message.textContent = "";
+
+        setDiv(addEditDiv);
+   } else {
+        enableInput(false);
+
+        try {
+            const response = await fetch(`/api/v1/jobs/${jobId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const data = await response.json();
+
+            if(response.status === 200) {
+                company.value = data.job.company;
+                position.value = data.job.position;
+                status.value = data.job.status;
+
+                addingJob.textContent = "UPDATE";
+                message.textContent = "";
+                addEditDiv.dataset.id = jobId;
+
+                setDiv(addEditDiv);
+
+            } else {
+                message.textContent = "The job entry was not found.";
+                
+                showJobs();
+            }
+        } catch(err) {
+            console.log(err);
+
+            message.textContent = "A communicatio error has occurred.";
+
+            showJobs();
+        }
+
+        enableInput(true);
+   }
 }
