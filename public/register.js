@@ -22,7 +22,7 @@ export const handleRegister = () => {
         if(inputEnabled && e.target.nodeName === "BUTTON") {
             if(e.target === registerButton) {
                 
-                if(password1.value != password2.value) {
+                if(password1.value !== password2.value) {
                     message.textContent = "The password entered do not match.";
                 } else {
                     enableInput(false);
@@ -70,7 +70,7 @@ export const handleRegister = () => {
                 email1.value = "";
                 password1.value = "";
                 password2.value = "";
-                
+
                 showLoginRegister();
             }
         }

@@ -17,11 +17,51 @@ export const handleAddEdit = () => {
 
     const editCancel = document.getElementById("edit-cancel");
 
-    addEditDiv.addEventListener("click", (e) => {
+    addEditDiv.addEventListener("click", async (e) => {
         if(inputEnabled && e.target.nodeName === "BUTTON") {
             if(e.target === addingJob) {
-                showJobs();
+                enableInput(false);
+
+                let method = "POST";
+                let url = "/api/v1/jobs";
+
+                try {
+                    const response = await fetch(url, {
+                        method: method,
+                        headers : {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            company: company.value,
+                            position: position.value,
+                            status: status.value
+                        })
+                    })
+
+                    const data = await response.json();
+
+                    if(response.status === 201) {
+                        message.textContent = "The job entry was created.";
+
+                        company.value = "";
+                        position.value = "";
+                        status.value = "";
+
+                        showJobs();
+                    } else {
+                        message.textContent = data.msg;
+                    }
+
+                } catch(err) {
+                    console.log(err);
+                    message.textContent = "A communication error occured.";
+                }
+
+                enableInput(true);
             } else if(e.target === editCancel) {
+                message.textContent = "";
+
                 showJobs();
             }
         }
