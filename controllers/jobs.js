@@ -45,7 +45,7 @@ const updateJob = async(req, res) => {
     const {
         body: { company, position },
         user: { userId }, 
-        parms: { id: jobId}
+        params: { id: jobId}
     } = req
 
     if(company === '' || position === '') {
