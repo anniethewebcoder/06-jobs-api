@@ -49,6 +49,8 @@ export const handleJobs = () => {
                     } else {
                         message.textContent = data.msg;
                     }
+
+                    showJobs();
                 } catch(err) { 
                     console.log(err);
                     message.textContent = "A communication error occurred.";
