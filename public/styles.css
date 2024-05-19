@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+body {
+    font-family: "Playfair Display";
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0;
+    width: 720px;
+}
+
+#message {
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+form > div {
+    margin: 15px 0;
+}
+
+
+label {
+    font-size: large;
+}
+
+input {
+    padding: 5px;
+    height: 20px;
+    margin: 5px 0;
+}
+
+input:focus {
+    background-color: #AE5900;
+    color: white;
+    outline: none;
+}
+
+
+select {
+    background-color: white;
+    color: #AE5900;
+    padding: 5px;
+    font-size: medium;
+}
+
+button {
+    background-color: #AE5900;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#jobs-table {
+    margin: 5px 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#jobs-table td, #jobs-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+#jobs-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+  
+#jobs-table tr:hover {
+    background-color: #ddd;
+}
+
+#jobs-table th {
+    padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  background-color: #7B3F00;
+  color: white;
+}
