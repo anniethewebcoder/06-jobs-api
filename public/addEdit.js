@@ -34,7 +34,7 @@ export const handleAddEdit = () => {
                 try {
                     const response = await fetch(url, {
                         method: method,
-                        headers : {
+                        headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`
                         },
