@@ -14,9 +14,8 @@ app.use(express.json());
 // extra packages
 
 // routes
-app.get("/", (req, res) => {
-  res.send("jobs api");
-});
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", jobsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
