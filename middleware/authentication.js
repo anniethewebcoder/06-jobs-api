@@ -18,6 +18,8 @@ const auth = (req, res, next) => {
       userId: payload.userId,
       name: payload.name,
     };
+
+    next();
   } catch (error) {
     throw new UnauthenticatedError("Invalid Authentication");
   }
