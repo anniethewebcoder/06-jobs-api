@@ -21,6 +21,7 @@ export let token = null;
 
 export const setToken = (value) => {
   token = value;
+  
   if (value) {
     localStorage.setItem("token", value);
   } else {
@@ -34,7 +35,7 @@ import { showJobs, handleJobs } from "./jobs";
 import { showLoginRegister, handleLoginRegister } from "./loginRegister";
 import { handleLogin } from "./login";
 import { handleAddEdit } from "./addEdit";
-import { handlleRegister } from "./register";
+import { handleRegister } from "./register";
 
 document.addEventListener("DOMContentLoaded", () => {
   token = localStorage.getItem("token");
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleLoginRegister();
   handleLogin();
   handleJobs();
-  handlleRegister();
+  handleRegister();
   handleAddEdit();
 
   if (token) {

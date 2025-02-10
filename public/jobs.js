@@ -1,3 +1,4 @@
+import { showAddEdit } from "./addEdit";
 import {
   inputEnabled,
   setDiv,
@@ -6,11 +7,32 @@ import {
   enableInput,
   setToken,
 } from "./index";
+import { showLogin } from "./login";
+import { showLoginRegister } from "./loginRegister";
 
 let jobsDiv = null;
 let jobsTable = null;
 let jobsTableHeader = null;
 
-export const handleJobs = () => {};
+export const handleJobs = () => {
+  jobsDiv = document.getElementById('jobs')
+  jobsTable = document.getElementById('jobs-table')
+  jobsTableHeader = document.getElementById('jobs-table-header')
 
-export const showJobs = () => {};
+  const logoff = document.getElementById('logoff')
+  const addJob = document.getElementById('add-job')
+
+  jobsDiv.addEventListener('click', (e) => {
+    if(inputEnabled && e.target.nodeName === 'BUTTON') {
+      if (e.target === addJob) {
+        showAddEdit(null)
+      } else if (e.target === logoff) {
+        showLoginRegister()
+      }
+    }
+  })
+};
+
+export const showJobs = () => {
+  setDiv(jobsDiv)
+};

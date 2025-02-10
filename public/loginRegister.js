@@ -4,6 +4,23 @@ import { showRegister } from "./register";
 
 let loginRegisterDiv = null;
 
-export const handleLoginRegister = () => {};
+export const handleLoginRegister = () => {
+    loginRegisterDiv = document.getElementById('logon-register')
 
-export const showLoginRegister = () => {};
+    const login = document.getElementById('logon')
+    const register = document.getElementById('register')
+
+    loginRegisterDiv.addEventListener('click', (e) => {
+        if(inputEnabled && e.target.nodeName === 'BUTTON') {
+            if(e.target === login) {
+                showLogin()
+            } else if(e.target === register) {
+                showRegister()
+            }
+        }
+    })
+};
+
+export const showLoginRegister = () => {
+    setDiv(loginRegisterDiv)
+};
