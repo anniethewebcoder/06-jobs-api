@@ -21,7 +21,7 @@ export let token = null;
 
 export const setToken = (value) => {
   token = value;
-  
+
   if (value) {
     localStorage.setItem("token", value);
   } else {
@@ -31,14 +31,15 @@ export const setToken = (value) => {
 
 export let message = null;
 
-import { showJobs, handleJobs } from "./jobs";
-import { showLoginRegister, handleLoginRegister } from "./loginRegister";
-import { handleLogin } from "./login";
-import { handleAddEdit } from "./addEdit";
-import { handleRegister } from "./register";
+import { showJobs, handleJobs } from "./jobs.js";
+import { showLoginRegister, handleLoginRegister } from "./loginRegister.js";
+import { handleLogin } from "./login.js";
+import { handleAddEdit } from "./addEdit.js";
+import { handleRegister } from "./register.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   token = localStorage.getItem("token");
+
   message = document.getElementById("message");
 
   handleLoginRegister();

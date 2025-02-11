@@ -1,73 +1,75 @@
 import {
   inputEnabled,
   setDiv,
-  token,
   message,
+  token,
   enableInput,
   setToken,
-} from "./index";
-import { showLoginRegister } from "./loginRegister";
+} from "./index.js";
+import { showLoginRegister } from "./loginRegister.js";
+import { showJobs } from "./jobs.js";
 
 let loginDiv = null;
 let email = null;
 let password = null;
 
 export const handleLogin = () => {
-  loginDiv = document.getElementById('logon-div')
-  email = document.getElementById('email')
-  password = document.getElementById('password')
+  loginDiv = document.getElementById("logon-div");
+  email = document.getElementById("email");
+  password = document.getElementById("password");
 
-  const logonButton = document.getElementById('logon-button')
-  const logonCancel = document.getElementById('logon-cancel')
+  const logonButton = document.getElementById("logon-button");
+  const logonCancel = document.getElementById("logon-cancel");
 
-  loginDiv.addEventListener('click', async (e) => {
-    if(inputEnabled && e.target.nodeName === 'BUTTON') {
-      if(e.target === logonButton) {
-        enableInput(false)
+  loginDiv.addEventListener("click", async (e) => {
+    if (inputEnabled && e.target.nodeName === "BUTTON") {
+      if (e.target === logonButton) {
+        enableInput(false);
 
         try {
           const response = await fetch("/api/v1/auth/login", {
-            method: 'POST',
+            method: "POST",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               email: email.value,
-              password: password.value
-            })
-          })
+              password: password.value,
+            }),
+          });
 
-          const data = await response.json()
+          const data = await response.json();
 
-          if(response.status === 200) {
-            message.textContent = `Logon successful. Welcome ${data.user.name}`
-            setToken(data.token)
+          if (response.status === 200) {
+            message.textContent = `Log On Successful. Welcome ${data.user.name}.`;
 
-            email.value = ""
-            password.value = ''
+            setToken(data.token);
+
+            email.value = "";
+            password.value = "";
 
             showJobs();
           } else {
-            message.textContent = data.msg
+            message.textContent = data.msg;
           }
         } catch (err) {
-          console.error(err)
-          message.textContent - "A communication error occurred."
+          console.error(err);
+          message.textContent = "A communication error occured.";
         }
 
-        enableInput(true)
+        enableInput(true);
       } else if (e.target === logonCancel) {
-        email.value = ""
-        password.value = ""
-        showLoginRegister()
+        email.value = "";
+        password.value = "";
+
+        showLoginRegister();
       }
     }
-  })
+  });
 };
 
 export const showLogin = () => {
-  email.value = null
-  password.value = null
-  
-  setDiv(loginDiv)
+  email.value = null;
+  password.value = null;
+  setDiv(loginDiv);
 };
