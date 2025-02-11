@@ -79,43 +79,26 @@ export const showJobs = async () => {
     });
 
     const data = await response.json();
-
     let children = [jobsTableHeader];
 
     if (response.status === 200) {
       if (data.count === 0) {
-        jobsTable.replaceChildren(...children);
+        jobsTable.replaceChildren(...children); // clear this for safety
       } else {
         for (let i = 0; i < data.jobs.length; i++) {
           let rowEntry = document.createElement("tr");
 
-          let editButton = `
-            <td>
-                <button type="button" class="editButton" data-id="${data.jobs[i]._id}">
-                    EDIT
-                </button>
-            </td>
-          `;
-
-          let deleteButton = `
-            <td>
-                <button type="button" class="deleteButton" data-id="${data.jobs[i]._id}">
-                    DELETE
-                </button>
-            </td>
-            `;
-
+          let editButton = `<td><button type="button" class="editButton" data-id=${data.jobs[i]._id}>EDIT</button></td>`;
+          let deleteButton = `<td><button type="button" class="deleteButton" data-id=${data.jobs[i]._id}>DELETE</button></td>`;
           let rowHTML = `
             <td>${data.jobs[i].company}</td>
             <td>${data.jobs[i].position}</td>
             <td>${data.jobs[i].status}</td>
-            <div>${editButton} ${deleteButton}</div>
-          `;
+            <div>${editButton}${deleteButton}</div>`;
 
           rowEntry.innerHTML = rowHTML;
           children.push(rowEntry);
         }
-
         jobsTable.replaceChildren(...children);
       }
     } else {
@@ -123,9 +106,8 @@ export const showJobs = async () => {
     }
   } catch (err) {
     console.log(err);
-    message.textContent = "A communication error occurred:";
+    message.textContent = "A communication error occurred.";
   }
-
   enableInput(true);
   setDiv(jobsDiv);
 };
